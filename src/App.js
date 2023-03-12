@@ -1,24 +1,32 @@
-import logo from './logo.svg';
+import { CssBaseline, ThemeProvider } from '@mui/material';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './App.css';
+import Layout from './component/Layout/Layout';
+import Home from './pages/Home/Home';
+import { theme } from './theme/theme';
 
 function App() {
+
+  const router = createBrowserRouter([
+    {
+      path: '/',
+      element: <Layout></Layout>,
+      children: [
+        {
+          path: '/',
+          element: <Home></Home>
+        }
+      ]
+    }
+  ])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <div className="App">
+        <CssBaseline />
+        <RouterProvider router={router} />
+      </div>
+    </ThemeProvider>
   );
 }
 
